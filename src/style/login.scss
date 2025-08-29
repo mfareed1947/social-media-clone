@@ -1,0 +1,17 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+@use 'base';
+
+
+.heading {
+    color: $primary-color;
+
+    .sub-heading {
+
+        .child-heading {
+            .grand-child {}
+        }
+    }
+
+}
