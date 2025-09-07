@@ -1,6 +1,8 @@
 // import "../style/login.css";
 import { useState } from "react";
 import style from "../style/login.module.css";
+import { Link } from "react-router";
+``;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -75,7 +77,7 @@ const Login = () => {
               )}
             </div>
             <button
-              className="px-4 py-2 bg-blue-500 text-white"
+              className="px-4 py-2 bg-blue-500 text-white cursor-pointer"
               onClick={handleSubmit}
             >
               Login
@@ -83,9 +85,12 @@ const Login = () => {
             <p className="text-center text-sm text-blue-400 underline">
               Forgotten password?
             </p>
-            <button className="text-white bg-green-500 cursor-pointer px-4 py-2">
+            <Link
+              to={"/register"}
+              className="text-white bg-green-500 cursor-pointer px-4 py-2 text-center"
+            >
               Create new account
-            </button>
+            </Link>
           </form>
         </div>
       </div>
