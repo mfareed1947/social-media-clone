@@ -1,12 +1,11 @@
-import React from "react";
 import { Link } from "react-router";
 import { months, years } from "../constant";
 
-const Form = ({ handleSubmit, register, watch }) => {
+const Form = ({ handleSubmit, register, errors }) => {
+  console.log(errors);
   const submitData = (data) => {
     console.log(data);
   };
-  console.log(watch("firstName"), "watch");
   return (
     <form
       onSubmit={handleSubmit(submitData)}
@@ -19,15 +18,28 @@ const Form = ({ handleSubmit, register, watch }) => {
           <input
             className="p-2 border border-gray-200"
             type="text"
-            {...register("firstName", { required: true })}
+            {...register("firstName", {
+              required: "Please enter your first name.",
+            })}
             placeholder="first name"
           />
+
           <input
             className="p-2 border border-gray-200"
             type="text"
             {...register("surName")}
             placeholder="surname"
           />
+          <div className="h-10">
+            {errors?.firstName && (
+              <span className="text-red-500">{errors?.firstName?.message}</span>
+            )}
+          </div>
+          <div className="h-10">
+            {errors?.surName && (
+              <span className="text-red-500">{errors?.surName?.message}</span>
+            )}
+          </div>
         </div>
         <div>
           <span>Date of birth</span>
@@ -41,7 +53,7 @@ const Form = ({ handleSubmit, register, watch }) => {
                 );
               })}
             </select>
-            <select {...register("month")} name="month" value={"23"} id="month">
+            <select {...register("month")} name="month" id="month">
               {months.map((month, ind) => {
                 return (
                   <option key={ind} value={month}>
@@ -50,7 +62,7 @@ const Form = ({ handleSubmit, register, watch }) => {
                 );
               })}
             </select>
-            <select {...register("year")} name="year" value={"23"} id="year">
+            <select {...register("year")} name="year" id="year">
               {years.map((year, ind) => {
                 return (
                   <option key={ind} value={year}>
@@ -68,21 +80,42 @@ const Form = ({ handleSubmit, register, watch }) => {
             htmlFor="female"
           >
             <span>Female</span>
-            <input className="" type="radio" name="Gender" id="female" />
+            <input
+              className=""
+              {...register("gender")}
+              type="radio"
+              name="gender"
+              id="female"
+              value={"female"}
+            />
           </label>
           <label
             className="border border-gray-200 p-2 flex justify-between"
             htmlFor="male"
           >
             <span>Male</span>
-            <input className="" type="radio" name="Gender" id="male" />
+            <input
+              className=""
+              {...register("gender")}
+              type="radio"
+              name="gender"
+              id="male"
+              value={"male"}
+            />
           </label>
           <label
             className="border border-gray-200 p-2 flex justify-between"
             htmlFor="custom"
           >
             <span>Custom</span>
-            <input className="" type="radio" name="Gender" id="custom" />
+            <input
+              className=""
+              {...register("gender")}
+              type="radio"
+              name="gender"
+              id="custom"
+              value={"custom"}
+            />
           </label>
         </div>
         <div className="flex flex-col gap-2">
@@ -93,11 +126,16 @@ const Form = ({ handleSubmit, register, watch }) => {
             placeholder="mobile number or email"
           />
           <input
-            {...register("passwod")}
+            {...register("password")}
             className="p-2 border border-gray-200"
-            type="text"
+            type="password"
             placeholder="password"
           />
+        </div>
+        <div className="h-10">
+          {errors?.password && (
+            <span className="text-red-500">{errors?.password?.message}</span>
+          )}
         </div>
         <p className="w-2/3 text-sm text-gray-500">
           People who use our service may have uploaded your contact information
