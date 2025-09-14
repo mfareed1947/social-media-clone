@@ -1,10 +1,18 @@
 import { Link } from "react-router";
 import { months, years } from "../constant";
+import { useNavigate } from "react-router";
 
 const Form = ({ handleSubmit, register, errors }) => {
+  let navigate = useNavigate();
+
   console.log(errors);
   const submitData = (data) => {
     console.log(data);
+    delete data.password;
+    localStorage.setItem("currentUser", JSON.stringify(data));
+    if (data.email) {
+      navigate("/home");
+    }
   };
   return (
     <form

@@ -1,9 +1,5 @@
-import React from "react";
-import { months, years } from "../constant";
-import { Link } from "react-router";
-
 import { useForm } from "react-hook-form";
-import Form from "../components/form";
+import Form from "../../components/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
