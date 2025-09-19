@@ -1,5 +1,47 @@
+import { useEffect, useState } from "react";
+
 const Home = () => {
-  return <div>Home</div>;
+  const [state, setstate] = useState(0);
+
+  // useEffect(() => {
+  console.log("parent render");
+  // }, []);
+
+  return (
+    <div>
+      <button onClick={() => setstate(state + 1)}>click</button>
+      {state}
+      <Child />
+    </div>
+  );
 };
 
 export default Home;
+
+const Child = () => {
+  // useEffect(() => {
+  console.log("child render");
+  // }, []);
+
+  return (
+    <>
+      <div>child</div>
+    </>
+  );
+};
+
+// function a() {} re-render
+// function b() {} re-render na ho
+
+// /products // 3 sec
+// [] 100
+
+//useMemo
+
+// useMemo(
+//   () =>
+//     function b() {
+//       return null;
+//     },
+//   [next]
+// );
