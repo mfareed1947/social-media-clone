@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { useLocation } from "react-router";
+import { useAuthContext } from "../../context/AuthContext";
 const menuItems = [
   {
     path: "/home",
@@ -54,6 +55,7 @@ const menuItems = [
 
 const Header = () => {
   const location = useLocation();
+  const { userDetails } = useAuthContext();
   // console.log(location);
   return (
     <>
@@ -105,7 +107,9 @@ const Header = () => {
               alt="Profile"
               className="w-8 h-8 rounded-full"
             />
-            <span className="font-medium text-sm">Josephine</span>
+            <span className="font-medium text-sm">
+              {userDetails?.firstName + userDetails?.surName}
+            </span>
           </div>
 
           <button className="bg-gray-200 p-2 rounded-full">

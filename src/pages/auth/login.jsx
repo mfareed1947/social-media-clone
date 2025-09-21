@@ -1,9 +1,12 @@
 // import "../style/login.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
-``;
+import { AppContext } from "../../context/AppContext";
+// import { filterData } from "../../utils/helper";
 
 const Login = () => {
+  const values = useContext(AppContext);
+  console.log(values, "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({
@@ -12,6 +15,8 @@ const Login = () => {
   });
 
   const handleChange = (event) => {
+    // const filterdData = filterData([12, 34, 45, 56, 12, 66], 50);
+    console.log(filterdData);
     setEmail(event.target.value);
   };
 

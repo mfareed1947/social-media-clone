@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Form from "../../components/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
+import { useAuthContext } from "../../context/AuthContext";
 const schema = z.object({
   firstName: z.string().min(3, { error: "please enter a first name" }),
   surName: z.string().min(3, { error: "please enter a surname" }),
@@ -24,6 +24,7 @@ const schema = z.object({
 });
 
 const Register = () => {
+  const { setUserDetails } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -52,6 +53,7 @@ const Register = () => {
             register={register}
             watch={watch}
             errors={errors}
+            setUserDetails={setUserDetails}
           />
         </div>
       </div>

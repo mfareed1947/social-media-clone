@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useAppContext } from "../../context/AppContext";
 
 const Home = () => {
+  const values = useAppContext();
+  console.log(values, "values");
   const [state, setstate] = useState(0);
 
   // useEffect(() => {
-  console.log("parent render");
+  // console.log("parent render");
   // }, []);
 
   return (
@@ -20,12 +23,12 @@ export default Home;
 
 const Child = () => {
   // useEffect(() => {
-  console.log("child render");
+  // console.log("child render");
   // }, []);
 
   return (
     <>
-      <div>child</div>
+      <div className=" w-12 sm:16 md:w-20">child</div>
     </>
   );
 };
