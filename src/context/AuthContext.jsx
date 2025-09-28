@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useReducer } from "react";
+import reducer from "../reducer/AuthReducer";
 
 const defaultValue = {
   firstName: "",
@@ -6,20 +7,22 @@ const defaultValue = {
   email: "",
   gender: "",
   dateOfBirth: "",
+  isUserLogin: false,
+  token: "",
+  post: [],
+  profile: {},
 };
 
 const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
-  const [userDetails, setUserDetails] = useState(defaultValue);
+  const [state, dispatch] = useReducer(reducer, defaultValue);
 
-  // console.log(userDetails);
+  // const [userDetails, setUserDetails] = useState(defaultValue);
 
-  return (
-    <AuthContext value={{ userDetails, setUserDetails }}>
-      {children}
-    </AuthContext>
-  );
+  // console.log(state);
+
+  return <AuthContext value={{ state, dispatch }}>{children}</AuthContext>;
 };
 
 export default AuthProvider;

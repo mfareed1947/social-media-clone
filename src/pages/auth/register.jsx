@@ -24,7 +24,7 @@ const schema = z.object({
 });
 
 const Register = () => {
-  const { setUserDetails } = useAuthContext();
+  const { state, dispatch } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -53,7 +53,7 @@ const Register = () => {
             register={register}
             watch={watch}
             errors={errors}
-            setUserDetails={setUserDetails}
+            dispatch={dispatch}
           />
         </div>
       </div>

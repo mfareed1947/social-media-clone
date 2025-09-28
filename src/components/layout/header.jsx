@@ -25,6 +25,8 @@ import {
 import { Link } from "react-router";
 import { useLocation } from "react-router";
 import { useAuthContext } from "../../context/AuthContext";
+import userIcon from "../../../public/icons/user_icon.jpg";
+
 const menuItems = [
   {
     path: "/home",
@@ -55,8 +57,9 @@ const menuItems = [
 
 const Header = () => {
   const location = useLocation();
-  const { userDetails } = useAuthContext();
-  // console.log(location);
+  const { state } = useAuthContext();
+  const { firstName, surName } = state;
+  console.log(state);
   return (
     <>
       <div className="flex items-center justify-between px-4 py-2 bg-white shadow-md">
@@ -103,13 +106,11 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <img
-              src="https://via.placeholder.com/32"
+              src={userIcon}
               alt="Profile"
               className="w-8 h-8 rounded-full"
             />
-            <span className="font-medium text-sm">
-              {userDetails?.firstName + userDetails?.surName}
-            </span>
+            <span className="font-medium text-sm">{firstName + surName}</span>
           </div>
 
           <button className="bg-gray-200 p-2 rounded-full">
