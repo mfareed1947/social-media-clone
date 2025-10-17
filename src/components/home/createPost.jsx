@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useId, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -24,10 +24,12 @@ import {
 import { styled } from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { usePostContext } from "../../context/PostContext";
+import { addPost } from "../../redux/slice/postSlice";
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "40%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 500,
@@ -52,19 +54,37 @@ const VisuallyHiddenInput = styled("input")({
 const CreatePost = () => {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState([]);
-  console.log(files);
+  const [postContent, setPostContent] = useState("");
+
+  // const id = useId();
+  const { dispatch: postDispatch } = usePostContext();
+
+  const count = useSelector((state) => state.post.post);
+  const dispatch = useDispatch();
+  console.log(count, "count");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  function srcset(image, size, rows = 1, cols = 1) {
-    return {
-      src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-      srcSet: `${image}?w=${size * cols}&h=${
-        size * rows
-      }&fit=crop&auto=format&dpr=2 2x`,
+  const handleClick = (e) => {
+    e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("postContent", postContent);
+    // formData.append("Files", files[0]);
+    // console.log(postContent, "postContent");
+    // console.log(formData, "formData");
+    const data = {
+      // id: Math.floor(Math.random() * 2324),
+      id: "12345",
+      postContent,
+      files,
+      createdAt: new Date().toLocaleString(),
+      createdBy: "Fareed",
     };
-  }
-
+    // postDispatch({ type: "ADD_POST", payload: data });
+    dispatch(addPost(data));
+    setOpen(false);
+    setFiles([]);
+    postContent("");
+  };
   return (
     <>
       <Modal open={open} onClose={handleClose}>
@@ -111,7 +131,7 @@ const CreatePost = () => {
                   multiline
                   rows={3}
                   placeholder="What's on your mind?"
-                  defaultValue="hello"
+                  onChange={(e) => setPostContent(e.target.value)}
                   variant="standard"
                   InputProps={{ disableUnderline: true }}
                   sx={{ mt: 2, fontSize: 20 }}
@@ -124,7 +144,6 @@ const CreatePost = () => {
                     rowHeight={121}
                   >
                     {files.map((item) => {
-                      console.log(item, "item");
                       return (
                         <ImageListItem
                           key={item.img}
@@ -132,11 +151,10 @@ const CreatePost = () => {
                           rows={item.rows || 1}
                         >
                           <img
-                            {...srcset(item.File, 121, item.rows, item.cols)}
+                            src={URL.createObjectURL(item)}
                             alt={item.title}
                             loading="lazy"
                           />
-                          {/* <img src={item} alt="" /> */}
                         </ImageListItem>
                       );
                     })}
@@ -200,7 +218,12 @@ const CreatePost = () => {
 
               {/* Post Button */}
               <Box p={2}>
-                <Button fullWidth variant="contained" color="primary">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}
+                >
                   Post
                 </Button>
               </Box>

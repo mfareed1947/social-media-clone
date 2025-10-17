@@ -4,12 +4,12 @@ import Register from "./pages/auth/register";
 import PrivateRoute from "./routes/privateRoute";
 import Layout from "./components/layout/layout";
 import { routes } from "./routes/routes";
-import Provider from "./components/Provider";
+import Providers from "./components/Provider";
 
 const App = () => {
   return (
     <>
-      <Provider>
+      <Providers>
         <BrowserRouter>
           <Routes>
             <>
@@ -30,7 +30,7 @@ const App = () => {
             </>
           </Routes>
         </BrowserRouter>
-      </Provider>
+      </Providers>
     </>
   );
 };
